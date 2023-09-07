@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {v4} from "uuid";
+import ReusableForm from "./ReusableForm";
 
 function NewBirdForm(props){
 
@@ -16,21 +17,9 @@ function NewBirdForm(props){
 
     return (
         <React.Fragment>
-            <form onSubmit={handleNewBirdSightingSubmission}>
-                <input
-                    type='text'
-                    name='species'
-                    placeholder='Species' />
-                <input
-                    type='text'
-                    name='location'
-                    placeholder='Location'/>
-                <input
-                    type='text'
-                    name='coloring'
-                    placeholder='Coloring' />
-                <button type='submit'>Record sighting</button>
-            </form>
+            <ReusableForm
+                formSubmissionHandler={handleNewBirdSightingSubmission}
+                buttonText = "Add new bird sighting"/>
         </React.Fragment>
     )
 }
