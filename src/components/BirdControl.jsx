@@ -1,18 +1,31 @@
 import React from "react";
 import BirdList from "./BirdList";
 import NewBirdForm from "./NewBirdForm"
+import BirdDetail from "./BirdDetail";
 
 class BirdControl extends React.Component{
     constructor(props){
         super(props);
         this.state = {
             formVisibleOnPage: false,
-            mainBirdList: []
+            mainBirdList: [],
+            selectedBird: null
         };
     }
 
+    handleChangingSelectedBird = (id) => {
+        const selectedBird = this.state.mainBirdList.filter(bird => bird.id === id)[0];
+        this.setState({selectedBird: selectedBird})
+    }
+
     handleClick = () => {
-        this.setState(prevState => ({formVisibleOnPage: !prevState.formVisibleOnPage}));
+        if (this.state.selectedBird != null) {
+            this.setState({
+                formVisibleOnPage: false,
+                selectedBird: null
+            });
+        } else { this.setState(prevState => ({formVisibleOnPage: !prevState.formVisibleOnPage}));
+        }
     }
 
     handleAddingNewBird = (newBird) => {
@@ -23,13 +36,20 @@ class BirdControl extends React.Component{
     render(){
         let currentlyVisibleState = null;
         let buttonText = null;
-        if(this.state.formVisibleOnPage) {
-            currentlyVisibleState = <NewBirdForm onNewBirdCreation={this.handleAddingNewBird}/>
-            buttonText = "return to list"
-        } else {
-            currentlyVisibleState = <BirdList birdList={this.state.mainBirdList}/>;
-            buttonText = "Add a new sighting!"
+
+        if (this.state.selectedBird != null){
+            currentlyVisibleState = <BirdDetail bird = {this.state.selectedBird} />
+            buttonText="Return to bird list"
         }
+        else if(this.state.formVisibleOnPage){
+            currentlyVisibleState = <NewBirdForm onNewBirdCreation={this.handleAddingNewBird} />;
+            buttonText = "Return to bird list";
+        }
+        else {
+            currentlyVisibleState = <BirdList birdList={this.state.mainBirdList} onBirdSelection={this.handleChangingSelectedBird} />
+            buttonText = "Add bird";
+        }
+
         return(
             <React.Fragment>
                 {currentlyVisibleState}

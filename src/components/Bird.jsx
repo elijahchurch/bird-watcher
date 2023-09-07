@@ -4,9 +4,13 @@ import PropTypes from "prop-types";
 function Bird(props){
     return(
         <React.Fragment>
-            <h3>{props.species}</h3>
-            <h3>{props.location}</h3>
-            <h3>{props.coloring}</h3>
+            <div onClick = {() => props.whenBirdClicked(props.id)}>
+                <h3>{props.species}</h3>
+                <p>Coloring: {props.coloring}</p>
+                <p>Location sighted: {props.location}</p>
+                <hr/>
+            </div>
+
         </React.Fragment>
     );
 }
@@ -14,7 +18,9 @@ function Bird(props){
 Bird.propTypes ={
     species: PropTypes.string,
     location: PropTypes.string,
-    coloring: PropTypes.coloring
+    coloring: PropTypes.coloring,
+    id: PropTypes.string,
+    whenBirdClicked: PropTypes.func
 };
 
 export default Bird;
