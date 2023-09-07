@@ -18,6 +18,14 @@ class BirdControl extends React.Component{
         this.setState({selectedBird: selectedBird})
     }
 
+    handleDeletingBird = (id) => {
+        const newMainBirdList = this.state.mainBirdList.filter(bird => bird.id !== id);
+        this.setState({
+            mainBirdList: newMainBirdList,
+            selectedBird: null
+        });
+    }
+
     handleClick = () => {
         if (this.state.selectedBird != null) {
             this.setState({
@@ -38,7 +46,7 @@ class BirdControl extends React.Component{
         let buttonText = null;
 
         if (this.state.selectedBird != null){
-            currentlyVisibleState = <BirdDetail bird = {this.state.selectedBird} />
+            currentlyVisibleState = <BirdDetail bird = {this.state.selectedBird} onClickingDelete = {this.handleDeletingBird}/>
             buttonText="Return to bird list"
         }
         else if(this.state.formVisibleOnPage){
