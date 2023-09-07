@@ -8,6 +8,7 @@ function BirdList(props){
             {props.birdList.map((bird, index) =>
             <Bird species={bird.species}
             location={bird.location}
+            coloring={bird.coloring}
             key={index} />
             )}
         </React.Fragment>

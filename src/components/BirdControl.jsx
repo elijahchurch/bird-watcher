@@ -23,13 +23,13 @@ class BirdControl extends React.Component{
     render(){
         let currentlyVisibleState = null;
         let buttonText = null;
-        // if(this.state.formVisibleOnPage) {
-        //     currentlyVisibleState = <NewBirdForm onNewBirdCreation={this.handleAddingNewBird}/>
-        //     buttonText = "Add to Viewing List"
-        // } else {
-            currentlyVisibleState = <BirdList birdlist={this.state.mainBirdList}/>;
+        if(this.state.formVisibleOnPage) {
+            currentlyVisibleState = <NewBirdForm onNewBirdCreation={this.handleAddingNewBird}/>
+            buttonText = "return to list"
+        } else {
+            currentlyVisibleState = <BirdList birdList={this.state.mainBirdList}/>;
             buttonText = "Add a new sighting!"
-        // }
+        }
         return(
             <React.Fragment>
                 {currentlyVisibleState}
